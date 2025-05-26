@@ -1,0 +1,5 @@
+(library
+ (name grnvs_ocaml)
+ (libraries unix ctypes ctypes.foreign)
+ (modules grnvs)
+)

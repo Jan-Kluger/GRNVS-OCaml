@@ -1,0 +1,5 @@
+(executable
+ (public_name test)
+ (name main)
+ (libraries grnvs_ocaml)
+)
