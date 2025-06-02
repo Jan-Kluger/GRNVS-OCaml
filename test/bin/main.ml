@@ -31,8 +31,9 @@ let main : unit =
       print_endline (hexdump frame);
 
       (* Entropy *)
-      let counts = Hashtbl.create 256 in
-      Bytes.iter (fun c ->
+    let counts = Hashtbl.create 256 in
+
+    Bytes.iter (fun c ->
         let k = Char.code c in
         let v = try Hashtbl.find counts k with Not_found -> 0 in
         Hashtbl.replace counts k (v + 1)

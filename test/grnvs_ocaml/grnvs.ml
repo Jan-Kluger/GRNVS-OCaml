@@ -1,22 +1,21 @@
 open Unix
 open Printf
-open Ctypes
-open Foreign
 
 (* Declare Timeout Exception *)
 exception Timeout
 
-let af_packet = 17    (* PF_PACKET *)
-let sock_raw  = 3     (* SOCK_RAW  *)
+let eth_p_all = 0x0003
 
-let socket = foreign "socket"  (int @-> int @-> int @-> returning int)
-let htons   = foreign "htons"   (int @-> returning int)
+(* Define External calls *)
+external socket_raw : unit -> int = "ocaml_socket_raw"
+external c_htons     : int  -> int = "ocaml_htons"
+external get_mac_raw : string -> string * bytes = "ocaml_get_mac"
 
 type t = file_descr
 
-type timeout = { mutable ns: int64 }
-
 (* Some timout functions --------------- *)
+
+type timeout = { mutable ns: int64 }
                
 let timeout_of_seconds (s : int) : timeout =
   { ns = Int64.mul (Int64.of_int s) 1_000_000_000L }
@@ -29,9 +28,9 @@ let timeout_secs (t : timeout) : float =
 
 (* ------- *)
   
-let open_raw (socket_type : int) : t =
-  let proto = htons socket_type in
-  let rawfd = socket af_packet sock_raw proto in
+let open_raw () : t =
+  let _proto = c_htons eth_p_all in
+  let rawfd = socket_raw ()  in
   if rawfd < 0 then failwith "socket() failed" else
     let fd = Obj.magic rawfd in
     set_nonblock fd;
@@ -80,25 +79,5 @@ let hexdump ?(width : int = 16) (data : bytes) : string =
 
 (* ------- *)
 
-let mac ~(interface : string) =
-  (* check it exists on Linux *)
-  let nets = Sys.readdir "/sys/class/net" in
-  if not (Array.exists ((=) interface) nets) then
-    failwith ("Unknown interface: " ^ interface);
-  let path = Printf.sprintf "/sys/class/net/%s/address" interface in
-  let ic = open_in path in
-  let human =
-    try
-      let line = input_line ic in
-      close_in ic;
-      String.trim line
-    with _ ->
-      close_in_noerr ic;
-      failwith ("Could not read MAC from " ^ path)
-  in
-  let parts = String.split_on_char ':' human in
-  let b = Bytes.create (List.length parts) in
-  List.iteri (fun i h ->
-    Bytes.set b i (Char.chr (int_of_string ("0x" ^ h)))
-  ) parts;
-  human, b
+let mac ~interface =
+  get_mac_raw interface
