@@ -2,7 +2,6 @@
 open Grnvs_ocaml.Grnvs
 
 let interface  = ref "eth0"
-let eth_p_all = 0x0003
 
 (* Main function after passing args *)
 let main : unit =
@@ -10,7 +9,7 @@ let main : unit =
   let timeout_time = 10.0 in
 
   let t = timeout_of_seconds (Float.to_int timeout_time) in
-  let sock = open_raw eth_p_all in
+  let sock = open_raw () in
 
   let result =
     try Some (read_frame sock t)

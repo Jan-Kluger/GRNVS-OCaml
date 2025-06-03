@@ -8,7 +8,6 @@ let eth_p_all = 0x0003
 
 (* Define External calls *)
 external socket_raw : unit -> int = "ocaml_socket_raw"
-external c_htons     : int  -> int = "ocaml_htons"
 external get_mac_raw : string -> string * bytes = "ocaml_get_mac"
 
 type t = file_descr
@@ -29,7 +28,6 @@ let timeout_secs (t : timeout) : float =
 (* ------- *)
   
 let open_raw () : t =
-  let _proto = c_htons eth_p_all in
   let rawfd = socket_raw ()  in
   if rawfd < 0 then failwith "socket() failed" else
     let fd = Obj.magic rawfd in
