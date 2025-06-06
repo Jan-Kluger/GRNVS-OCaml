@@ -1,3 +1,8 @@
+(*****************************************)
+(* Library Created by Yannick Schürmann  *)
+(* Github: https://github.com/Jan-Kluger *)
+(*****************************************)
+
 [@@@ocaml.warning "-32"]
 
 type buf = (int, Bigarray.int8_unsigned_elt, Bigarray.c_layout) Bigarray.Array1.t
