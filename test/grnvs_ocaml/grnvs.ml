@@ -1,10 +1,14 @@
+
+(*****************************************)
+(* Library Created by Yannick Schürmann  *)
+(* Github: https://github.com/Jan-Kluger *)
+(*****************************************)
+
 open Unix
 open Printf
 
 (* Declare Timeout Exception *)
 exception Timeout
-
-let eth_p_all = 0x0003
 
 (* Define External calls *)
 external socket_raw : unit -> int = "ocaml_socket_raw"

@@ -1,3 +1,8 @@
+//*****************************************)
+//* Library Created by Yannick Schürmann  *)
+//* Github: https://github.com/Jan-Kluger *)
+//*****************************************)
+
 /* raw_stubs.c: OCaml C-stubs wrapping your gateway functions */
 #include <caml/mlvalues.h>
 #include <caml/alloc.h>

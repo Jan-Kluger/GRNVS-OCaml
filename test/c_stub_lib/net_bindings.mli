@@ -1,3 +1,8 @@
+(*****************************************)
+(* Library Created by Yannick Schürmann  *)
+(* Github: https://github.com/Jan-Kluger *)
+(*****************************************)
+
 [@@@ocaml.warning "-32"]
 
 (** A contiguous buffer of bytes. *)

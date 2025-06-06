@@ -1,3 +1,8 @@
+(*****************************************)
+(* Library Created by Yannick Schürmann  *)
+(* Github: https://github.com/Jan-Kluger *)
+(*****************************************)
+
 type timeout
 
 (** Raised by [read_frame] or [iterate] when the timeout expires. *)

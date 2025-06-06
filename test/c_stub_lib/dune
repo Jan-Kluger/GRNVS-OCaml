@@ -1,6 +1,5 @@
 (library
  (name c_stub_lib)
- (public_name src.c_stub_lib)
 
  (foreign_stubs
   (language c)
