@@ -1,0 +1,17 @@
+(library
+ (name c_stub_lib)
+ (public_name src.c_stub_lib)
+
+ (foreign_stubs
+  (language c)
+  (names
+    raw_stubs
+    raw
+    checksum
+    hexdump
+    crc)
+ )
+
+ (libraries unix))
+
+(include_subdirs unqualified)

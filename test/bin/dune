@@ -1,5 +1,5 @@
 (executable
  (public_name test)
  (name main)
- (libraries grnvs_ocaml)
+ (libraries grnvs_ocaml c_stub_lib)
 )
