@@ -1,5 +1,12 @@
 (library
  (name grnvs_ocaml)
- (libraries unix ctypes ctypes.foreign)
+ (libraries unix)
+ 
+ (foreign_stubs
+  (language c)
+  (names
+    grnvs_stubs)
+ )
+
  (modules grnvs)
 )
